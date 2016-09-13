@@ -1,0 +1,35 @@
+.links {
+  width: 100%;
+  padding: 0 0 1.35em 0;
+  cursor: default;
+  text-align: center; }
+  .links ul {
+    margin-top: -0.5em;
+    padding: 0;
+    font-size: 0.9em;
+    list-style: none;
+    display: flex;
+    align-content: stretch;
+    flex-wrap: wrap;
+    justify-content: center; }
+    .links ul li {
+      display: inline-block;
+      flex-basis: auto;
+      margin: 0.5em 0.45em 0 0.45em;
+      /*padding: 0.5em 0.85em 0 0.85em;*/
+      line-height: 1; }
+
+#main a {
+  color: #9DA4A9; }
+
+#main a:hover {
+  color: #FF2A5E; }
+
+ul.icons li a:hover:before {
+  color: #ff7496;
+  text-shadow: none; }
+
+.avatar > img {
+  width: 128px;
+  height: 128px;
+}
