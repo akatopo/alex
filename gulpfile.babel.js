@@ -92,8 +92,6 @@ gulp.task('deploy', gulp.series(
 
 /////////////////////////////////////////////////////////////
 
-
-// ${process.cwd()}/public/sections
 function build(page, dest) {
   return spawn('hugo', [
     '--config', `${page}/config.toml`,
@@ -174,7 +172,8 @@ function spawn(exe, args, { cwd, stdio } = {}) {
       if (code) {
         const msg = buf.join('') || `Process failed: ${code}`;
         reject(new Error(msg));
-      } else {
+      }
+      else {
         resolve(code);
       }
     });
