@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {
+      "follow_symlinks": true,
+      "folder_exclude_patterns": [
+        "node_modules",
+        "public"
+      ],
+      "path": "."
+    }
+  ],
+  "settings": {
+    "tab_size": 2
+  }
+}

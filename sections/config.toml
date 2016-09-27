@@ -1,0 +1,37 @@
+baseurl = "http://alex.katopod.is/sections/"
+languageCode = "en-us"
+title = "Alex Katopodis"
+theme = "beautifulhugo"
+pygmentsUseClasses = true
+canonifyurls = true
+#disqusShortname = "XXX"
+#googleAnalytics = "XXX"
+# Do not build RSS files
+disableRSS = true
+# Do not build Sitemap file
+disableSitemap = true
+
+[Params]
+  logo = "images/avatar.jpg"
+  subtitle = "Use the cool links on the upper right please"
+
+[Author]
+  name = "Alex Katopodis"
+  email = "alex(at)katopod.is"
+  # facebook = "username"
+  github = "akatopo"
+  twitter = "anekopod"
+  # linkedin = "pub/username/X/YYY/ZZZ"
+  # stackoverflow = "XXXXXXX/username"
+  # soundcloud = "username"
+  # wikipedia = "username"
+
+[[menu.main]]
+  name = "code"
+  url = "/page/code/"
+  weight = 1
+
+[[menu.main]]
+  name = "presentations"
+  url = "/page/presentations/"
+  weight = 2

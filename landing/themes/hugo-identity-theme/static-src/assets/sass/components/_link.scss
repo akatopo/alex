@@ -1,0 +1,18 @@
+.link {
+  color: #9DA4A9;
+
+  &:hover {
+    color: #FF2A5E;
+  }
+}
+
+.link--magicLine {
+  background-image: linear-gradient(to bottom, rgba(157,164,169,0.6) 50%, rgba(0,0,0,0) 50%);
+  background-size: 2px .1em;
+  background-repeat: repeat-x;
+  background-position: 0 1.1em;
+
+  &:hover {
+    background-image: linear-gradient(to bottom, rgba(255,42,94,0.6) 50%, rgba(0,0,0,0) 50%);
+  }
+}
