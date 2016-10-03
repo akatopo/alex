@@ -7,6 +7,7 @@ import cp from 'child_process';
 import del from 'del';
 import ghPages from 'gh-pages';
 import path from 'path';
+import escapeRegExp from 'lodash.escaperegexp';
 
 import gulp from 'gulp';
 import sass from 'gulp-sass';
@@ -16,6 +17,8 @@ import uglify from 'gulp-uglify';
 import sourcemaps from 'gulp-sourcemaps';
 import autoprefixer from 'gulp-autoprefixer';
 import file from 'gulp-file';
+import revAll from 'gulp-rev-all';
+import replace from 'gulp-replace';
 
 /////////////////////////////////////////////////////////////
 
@@ -29,12 +32,14 @@ const SECTIONS_STATIC_BASE_JS = `${SECTIONS_STATIC_BASE}/js`;
 const SECTIONS_STATIC_BASE_CSS = `${SECTIONS_STATIC_BASE}/css`;
 const SECTIONS_BUNDLE_PARAMS = [SECTIONS_STATIC_SOURCE_BASE_JS, SECTIONS_STATIC_BASE_JS];
 const SECTIONS_SASS_PARAMS = [SECTIONS_STATIC_SOURCE_BASE_SASS, SECTIONS_STATIC_BASE_CSS];
+const SECTIONS_BASE_URL = `http://${CNAME}/sections/`;
 
 const LANDING_STATIC_SOURCE_BASE = './landing/themes/hugo-identity-theme/static-src';
 const LANDING_STATIC_SOURCE_BASE_SASS = `${LANDING_STATIC_SOURCE_BASE}/assets/sass`;
 const LANDING_STATIC_BASE = './landing/themes/hugo-identity-theme/static';
 const LANDING_STATIC_BASE_CSS = `${LANDING_STATIC_BASE}/assets/css`;
 const LANDING_SASS_PARAMS = [LANDING_STATIC_SOURCE_BASE_SASS, LANDING_STATIC_BASE_CSS];
+const LANDING_BASE_URL = `http://${CNAME}/`;
 
 /////////////////////////////////////////////////////////////
 
@@ -44,33 +49,42 @@ gulp.task('sections:compile-sass', R.partial(compileSass, SECTIONS_SASS_PARAMS))
 
 gulp.task('sections:watch', gulp.series(
   gulp.parallel('sections:compile-js', 'sections:compile-sass'),
-  R.partial(watch, [[
+  R.partial(watch, [
     { glob: `${SECTIONS_STATIC_SOURCE_BASE_JS}/**/*.js`,
-      tasks: ['sections:compile-js'] },
+      tasks: gulp.series('sections:compile-js') },
     { glob: `${SECTIONS_STATIC_SOURCE_BASE_SASS}/**/*.scss`,
-      tasks: ['sections:compile-sass'] },
-  ]])
+      tasks: gulp.series('sections:compile-sass') },
+  ])
 ));
 
 gulp.task('sections:build', gulp.series(
   gulp.parallel('sections:compile-js', 'sections:compile-sass'),
   R.partial(build, [
     'sections',
-    `${process.cwd()}/public/sections`,
-  ]
-)));
+    `${process.cwd()}/.tmp-build-sections`,
+  ]),
+  R.partial(removeBaseUrl, ['./.tmp-build-sections', SECTIONS_BASE_URL]),
+  R.partial(rev, ['./.tmp-build-sections', SECTIONS_BASE_URL, './public/sections']),
+  () => del('./.tmp-build-sections/*', { dot: true })
+));
 
 gulp.task('landing:compile-sass', R.partial(compileSass, LANDING_SASS_PARAMS));
 
-gulp.task('landing:watch', gulp.series('landing:compile-sass', R.partial(watch, [[
+gulp.task('landing:watch', gulp.series('landing:compile-sass', R.partial(watch, [
   { glob: `${LANDING_STATIC_SOURCE_BASE_SASS}/**/*.scss`,
     tasks: gulp.series('landing:compile-sass') },
-]])));
-
-gulp.task('landing:build', gulp.series('landing:compile-sass', R.partial(build, [
-  'landing',
-  `${process.cwd()}/public`,
 ])));
+
+gulp.task('landing:build', gulp.series(
+  'landing:compile-sass',
+  R.partial(build, [
+    'landing',
+    `${process.cwd()}/.tmp-build-landing`,
+  ]),
+  R.partial(removeBaseUrl, ['./.tmp-build-landing', LANDING_BASE_URL]),
+  R.partial(rev, ['./.tmp-build-landing', LANDING_BASE_URL, './public']),
+  () => del('./.tmp-build-landing/*', { dot: true })
+));
 
 gulp.task('landing:serve-dev', () => spawn('hugo', [
   'server',
@@ -91,6 +105,13 @@ gulp.task('deploy', gulp.series(
 ));
 
 /////////////////////////////////////////////////////////////
+
+function removeBaseUrl(basePath, baseUrl) {
+  console.log(escapeRegExp(baseUrl));
+  return gulp.src(`${basePath}/**/*.html`, { base: basePath })
+    .pipe(replace(new RegExp(`(${escapeRegExp(baseUrl)})([^\.\\n]+\\.)`, 'g'), '/$2'))
+    .pipe(gulp.dest(basePath));
+}
 
 function build(page, dest) {
   return spawn('hugo', [
@@ -142,7 +163,7 @@ function compileSass(staticSourceBase, staticBase) {
     .pipe(gulp.dest(`${staticBase}`));
 }
 
-function watch(watches) {
+function watch(...watches) {
   watches.forEach((w) => {
     gulp.watch(w.glob, w.tasks);
   });
@@ -157,6 +178,14 @@ function deploy(done) {
   }, done);
 }
 
+function rev(buildPath, baseUrl, dest) {
+  return gulp.src([`${buildPath}/**/*`])
+    .pipe(revAll.revision({
+      dontRenameFile: ['.html'],
+      prefix: baseUrl,
+    }))
+    .pipe(gulp.dest(dest));
+}
 
 function spawn(exe, args, { cwd, stdio } = {}) {
   const child = cp.spawn(exe, args, {
@@ -165,9 +194,11 @@ function spawn(exe, args, { cwd, stdio } = {}) {
   });
   const buf = [];
   return new Promise((resolve, reject) => {
-    child.stderr.on('data', (chunk) => {
-      buf.push(chunk.toString());
-    });
+    if (R.path(['stderr', 'on'], child)) {
+      child.stderr.on('data', (chunk) => {
+        buf.push(chunk.toString());
+      });
+    }
     child.on('close', (code) => {
       if (code) {
         const msg = buf.join('') || `Process failed: ${code}`;
