@@ -107,7 +107,6 @@ gulp.task('deploy', gulp.series(
 /////////////////////////////////////////////////////////////
 
 function removeBaseUrl(basePath, baseUrl) {
-  console.log(escapeRegExp(baseUrl));
   return gulp.src(`${basePath}/**/*.html`, { base: basePath })
     .pipe(replace(new RegExp(`(${escapeRegExp(baseUrl)})([^\.\\n]+\\.)`, 'g'), '/$2'))
     .pipe(gulp.dest(basePath));
