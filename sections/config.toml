@@ -14,10 +14,11 @@ disableSitemap = true
 [Params]
   logo = "images/avatar.jpg"
   subtitle = "Use the cool links on the upper right please"
+  favicon = "favicon.ico"
 
 [Author]
   name = "Alex Katopodis"
-  email = "alex(at)katopod.is"
+  email = "alex_at_katopod.is"
   # facebook = "username"
   github = "akatopo"
   twitter = "anekopod"
