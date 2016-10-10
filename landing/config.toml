@@ -81,9 +81,14 @@ disableSitemap = true
         link = "https://twitter.com/anekopod"
 
     [[params.social]]
+        title = "LinkedIn"
+        icon = "fa-linkedin"
+        link = "https://www.linkedin.com/in/akatopo"
+
+    [[params.social]]
         title = "Email"
         icon = "fa-envelope"
-        link = "mailto:alex(at)katopod.is"
+        link = "mailto:alex_at_katopod.is"
 
     # Footer settings
     [params.footer]
