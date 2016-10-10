@@ -68,6 +68,12 @@ gulp.task('sections:build', gulp.series(
   () => del('./.tmp-build-sections/*', { dot: true })
 ));
 
+gulp.task('sections:serve-dev', () => spawn('hugo', [
+  'server',
+  '-s', 'sections',
+  '--port', '1314',
+], { stdio: ['pipe', 'inherit', 'pipe'] }));
+
 gulp.task('landing:compile-sass', R.partial(compileSass, LANDING_SASS_PARAMS));
 
 gulp.task('landing:watch', gulp.series('landing:compile-sass', R.partial(watch, [
