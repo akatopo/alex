@@ -42,4 +42,4 @@ A sudoku solver, or: _Making second year programming class C code run on the web
 
 ![sudoku solver screenshot](/images/sudoku-solver.png)
 
-[web](https://dl.dropboxusercontent.com/u/344556/sudoku/index.html)
+[web](https://akatopo.github.io/sudoku-solver/)
