@@ -186,7 +186,7 @@ function deploy(done) {
 function rev(buildPath, baseUrl, dest) {
   return gulp.src([`${buildPath}/**/*`])
     .pipe(revAll.revision({
-      dontRenameFile: ['.html'],
+      dontRenameFile: [/\.html$/, /^\/robots\.txt$/],
       prefix: baseUrl,
     }))
     .pipe(gulp.dest(dest));
