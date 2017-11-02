@@ -32,14 +32,14 @@ const SECTIONS_STATIC_BASE_JS = `${SECTIONS_STATIC_BASE}/js`;
 const SECTIONS_STATIC_BASE_CSS = `${SECTIONS_STATIC_BASE}/css`;
 const SECTIONS_BUNDLE_PARAMS = [SECTIONS_STATIC_SOURCE_BASE_JS, SECTIONS_STATIC_BASE_JS];
 const SECTIONS_SASS_PARAMS = [SECTIONS_STATIC_SOURCE_BASE_SASS, SECTIONS_STATIC_BASE_CSS];
-const SECTIONS_BASE_URL = `http://${CNAME}/sections/`;
+const SECTIONS_BASE_URL = `https://${CNAME}/sections/`;
 
 const LANDING_STATIC_SOURCE_BASE = './landing/themes/hugo-identity-theme/static-src';
 const LANDING_STATIC_SOURCE_BASE_SASS = `${LANDING_STATIC_SOURCE_BASE}/assets/sass`;
 const LANDING_STATIC_BASE = './landing/themes/hugo-identity-theme/static';
 const LANDING_STATIC_BASE_CSS = `${LANDING_STATIC_BASE}/assets/css`;
 const LANDING_SASS_PARAMS = [LANDING_STATIC_SOURCE_BASE_SASS, LANDING_STATIC_BASE_CSS];
-const LANDING_BASE_URL = `http://${CNAME}/`;
+const LANDING_BASE_URL = `https://${CNAME}/`;
 
 /////////////////////////////////////////////////////////////
 

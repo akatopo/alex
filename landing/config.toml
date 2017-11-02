@@ -1,5 +1,5 @@
 # Site settings
-baseurl = "http://alex.katopod.is" #without ending slash
+baseurl = "https://alex.katopod.is" #without ending slash
 languageCode = "en-us"
 theme = "hugo-identity-theme"
 title = "Alex Katopodis"

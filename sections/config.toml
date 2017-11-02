@@ -1,4 +1,4 @@
-baseurl = "http://alex.katopod.is/sections/"
+baseurl = "https://alex.katopod.is/sections/"
 languageCode = "en-us"
 title = "Alex Katopodis"
 theme = "beautifulhugo"
