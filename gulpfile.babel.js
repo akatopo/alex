@@ -16,7 +16,6 @@ import gutil from 'gulp-util';
 import uglify from 'gulp-uglify';
 import sourcemaps from 'gulp-sourcemaps';
 import autoprefixer from 'gulp-autoprefixer';
-import file from 'gulp-file';
 import revAll from 'gulp-rev-all';
 import replace from 'gulp-replace';
 
@@ -100,9 +99,7 @@ gulp.task('landing:serve-dev', () => spawn('hugo', [
 
 gulp.task('build', gulp.series(
   () => del('./public/*', { dot: true }),
-  gulp.parallel('landing:build', 'sections:build'),
-  () => file('CNAME', CNAME, { src: true })
-    .pipe(gulp.dest('./public'))
+  gulp.parallel('landing:build', 'sections:build')
 ));
 
 gulp.task('deploy', gulp.series(
@@ -201,6 +198,11 @@ function spawn(exe, args, { cwd, stdio } = {}) {
   return new Promise((resolve, reject) => {
     if (R.path(['stderr', 'on'], child)) {
       child.stderr.on('data', (chunk) => {
+        buf.push(chunk.toString());
+      });
+    }
+    if (R.path(['stdout', 'on'], child)) {
+      child.stdout.on('data', (chunk) => {
         buf.push(chunk.toString());
       });
     }
