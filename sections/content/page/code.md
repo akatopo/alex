@@ -2,6 +2,8 @@
 layout: page
 title: Code
 subtitle: Bits and bytes
+description: Personal project highlights
+og_image: images/k2e.png
 ---
 
 ### k2e

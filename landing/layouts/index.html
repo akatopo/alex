@@ -12,6 +12,28 @@
     <title>{{ .Site.Title }}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- open graph tags -->
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ .Site.BaseURL }}/" />
+    <meta property="og:title" content="{{ .Site.Title }}" />
+    <meta property="og:description" content="{{ .Site.Params.description }}" />
+    <meta property="og:image" content="{{ .Site.BaseURL }}/images/avatars/{{ .Site.Params.avatar  }}" />
+
+    <!-- twitter card tags -->
+
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:domain" content="{{ .Site.Params.domain }}" />
+    <meta property="twitter:title" content="{{ .Site.Title }}" />
+    <meta property="twitter:description" content="{{ .Site.Params.description }}" />
+    <meta property="twitter:image" content="{{ .Site.BaseURL }}/images/avatars/{{ .Site.Params.avatar  }}" />
+    <meta property="twitter:url" content="{{ .Site.BaseURL }}/" />
+    <meta property="twitter:label1" content="Work" />
+    <meta property="twitter:data1" content="{{ .Site.Params.position.role }} @ {{ .Site.Params.position.companyName }}" />
+    <meta property="twitter:label2" content="Code" />
+    <meta property="twitter:data2" content="github.com/akatopo" />
+
     <link rel="icon" href="{{ .Site.BaseURL }}/images/icons/{{ .Site.Params.favicon  }}" type="image/x-icon" />
     <link rel="apple-touch-icon-precomposed" href="{{ .Site.BaseURL }}/images/icons/{{ .Site.Params.appletouchicon  }}" />
     <!--[if lte IE 8]><script src="{{ .Site.BaseURL }}/assets/js/html5shiv.js"></script><![endif]-->

@@ -12,6 +12,8 @@ disableSitemap = true
 # googleAnalytics = "UA-XXXXX-Y"
 
 [params]
+    domain = "alex.katopod.is"
+    description = "Currently in a relationship with JavaScript. I believe in the heart of the cards."
 
     # Images settings
     # Icons, backgrounds and avatars folders are placed in theme's static/images folder.

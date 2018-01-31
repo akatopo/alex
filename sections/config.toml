@@ -12,9 +12,11 @@ disableRSS = true
 disableSitemap = true
 
 [Params]
+  domain = "alex.katopod.is"
   logo = "images/avatar.jpg"
   subtitle = "Use the cool links on the upper right please"
   favicon = "favicon.ico"
+  og_image = "images/avatar.jpg"
 
 [Author]
   name = "Alex Katopodis"

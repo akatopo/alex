@@ -2,6 +2,8 @@
 layout: page
 title: Presentations
 subtitle: Stuff I've talked about
+description: Presentation highlights
+og_image: images/cool-tools.png
 ---
 
 ### Intro to GIT
