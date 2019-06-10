@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Alex Katopodis</title>
+    <link>https://alex.katopod.is/sections/</link>
+    <description>Recent content on Alex Katopodis</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>alex_at_katopod.is (Alex Katopodis)</managingEditor>
+    <webMaster>alex_at_katopod.is (Alex Katopodis)</webMaster>
+    
+	<atom:link href="https://alex.katopod.is/sections/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Code</title>
+      <link>https://alex.katopod.is/sections/page/code/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>alex_at_katopod.is (Alex Katopodis)</author>
+      <guid>https://alex.katopod.is/sections/page/code/</guid>
+      <description>k2e Browse your kindle clippings and export them to evernote.
+web | github
+GithubEmoji A Sublime Text 3 plugin for inserting github emoji in markdown documents. Also supports commit message emoji
+package control | github
+Labstrap A mediawiki theme built for the tolabaki hackerspace, based on the strapping theme.
+web | git
+Salty fox A micro-IDE and AST viewer for the MetaOCaml-inspired fox interpreted metalanguage.
+web (Note that salty fox is chrome only and needs the chrome://flags/#enable-nacl flag to be enabled)</description>
+    </item>
+    
+    <item>
+      <title>Presentations</title>
+      <link>https://alex.katopod.is/sections/page/presentations/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>alex_at_katopod.is (Alex Katopodis)</author>
+      <guid>https://alex.katopod.is/sections/page/presentations/</guid>
+      <description>Intro to GIT Created for the University of Crete CS352 class. A gentle introduction to git for 3rd year students.
+web | github
+Tools: #⃣, 📚, 🎞, and 🖖 Created for the September 2016 DevStaff meet up series of lightning talks. A presentation about cool tools and broken emoji.
+web | github</description>
+    </item>
+    
+  </channel>
+</rss>
