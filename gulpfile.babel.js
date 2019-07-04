@@ -111,7 +111,7 @@ gulp.task('deploy', gulp.series(
 
 function removeBaseUrl(basePath, baseUrl) {
   return gulp.src(`${basePath}/**/*.html`, { base: basePath })
-    .pipe(replace(new RegExp(`(${escapeRegExp(baseUrl)})([^\.\\n]+\\.)`, 'g'), '/$2'))
+    .pipe(replace(new RegExp(`(${escapeRegExp(baseUrl)})([^.\\n]+\\.)`, 'g'), '/$2'))
     .pipe(gulp.dest(basePath));
 }
 
@@ -175,7 +175,7 @@ function deploy(done) {
   ghPages.publish(path.join(__dirname, 'public'), {
     logger: gutil.log,
     src: ['**/*'],
-    repo: 'git@github.com:akatopo/alex.git',
+    repo: 'git@github.com-akatopo:akatopo/alex.git',
     branch: 'gh-pages',
   }, done);
 }
