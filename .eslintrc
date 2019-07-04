@@ -2,9 +2,6 @@
   "env": {
     "browser": true
   },
-  "globals": {
-    "enyo": false
-  },
   "rules": {
     "brace-style": 0,
     "no-use-before-define": [2, "nofunc"],
