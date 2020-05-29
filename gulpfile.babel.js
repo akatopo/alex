@@ -18,9 +18,14 @@ import sourcemaps from 'gulp-sourcemaps';
 import autoprefixer from 'gulp-autoprefixer';
 import revAll from 'gulp-rev-all';
 import replace from 'gulp-replace';
+import file from 'gulp-file';
 
 /////////////////////////////////////////////////////////////
 
+const redirects = `
+/code              /sections/page/code
+/presentations     /sections/page/presentations
+`.trim();
 const CNAME = 'alex.katopod.is';
 
 const SECTIONS_STATIC_SOURCE_BASE = './sections/themes/beautifulhugo/static-src';
@@ -99,7 +104,9 @@ gulp.task('landing:serve-dev', () => spawn('hugo', [
 
 gulp.task('build', gulp.series(
   () => del('./public/*', { dot: true }),
-  gulp.parallel('landing:build', 'sections:build')
+  gulp.parallel('landing:build', 'sections:build'),
+  () => file('_redirects', redirects, { src: true })
+    .pipe(gulp.dest('./public'))
 ));
 
 gulp.task('deploy', gulp.series(
