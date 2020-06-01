@@ -22,10 +22,14 @@ import file from 'gulp-file';
 
 /////////////////////////////////////////////////////////////
 
-const redirects = `
-/code              /sections/page/code
-/presentations     /sections/page/presentations
-`.trim();
+const redirects = [
+  { from: '/code', to: '/sections/page/code' },
+  { from: '/presentations', to: '/sections/page/presentations' },
+];
+
+const netlifyRedirects = redirects.map(({ from, to }) => `${from} ${to} 200`)
+  .join('\n');
+
 const CNAME = 'alex.katopod.is';
 
 const SECTIONS_STATIC_SOURCE_BASE = './sections/themes/beautifulhugo/static-src';
@@ -105,7 +109,7 @@ gulp.task('landing:serve-dev', () => spawn('hugo', [
 gulp.task('build', gulp.series(
   () => del('./public/*', { dot: true }),
   gulp.parallel('landing:build', 'sections:build'),
-  () => file('_redirects', redirects, { src: true })
+  () => file('_redirects', netlifyRedirects, { src: true })
     .pipe(gulp.dest('./public'))
 ));
 
@@ -117,9 +121,14 @@ gulp.task('deploy', gulp.series(
 /////////////////////////////////////////////////////////////
 
 function removeBaseUrl(basePath, baseUrl) {
-  return gulp.src(`${basePath}/**/*.html`, { base: basePath })
-    .pipe(replace(new RegExp(`(${escapeRegExp(baseUrl)})([^.\\n]+\\.)`, 'g'), '/$2'))
-    .pipe(gulp.dest(basePath));
+  const stream = gulp.src(`${basePath}/**/*.html`, { base: basePath })
+    .pipe(replace(new RegExp(`(${escapeRegExp(baseUrl)})([^.\\n]+\\.)`, 'g'), '/$2'));
+
+  redirects.forEach(({ from, to }) => {
+    stream.pipe(replace(to, from));
+  });
+
+  return stream.pipe(gulp.dest(basePath));
 }
 
 function build(page, dest) {
