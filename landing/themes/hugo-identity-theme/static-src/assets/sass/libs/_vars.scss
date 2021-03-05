@@ -29,12 +29,33 @@
 // Palette.
 	$palette: (
 		bg:					#ffffff,
-		bg-alt:				#e1dfe8,
 		fg:					#414f57,
 		fg-bold:			#313f47,
 		fg-light:			#616f77,
+    link:         #9da4a9,
+    link-rgb: '157, 164, 169',
 		border:				#c8cccf,
+		highlight:			#ff7496,
+    highlight-rgb: '255, 116, 150',
 		accent1:			#ffa596,
-		accent2:			#00e4ff,
-		highlight:			#ff7496
-	);
+    accent2:			#00e4ff,
+    accent1-transparent: transparentize(#ffa596, 0.5),
+    accent2-transparent: transparentize(#00e4ff, 0.35)
+  );
+
+  $palette-dark: (
+    bg:					#121212,
+    fg:					#b1b1b1,
+    fg-bold:			#cfcfcf,
+    fg-light:			#9e9e9e,
+    link:         #cfcfcf,
+    link-rgb: '207, 207, 207',
+    border:				#ff7496,
+    highlight:			#ff7496,
+    highlight-rgb: '255, 116, 150',
+    accent1:			#000,
+    accent2:			#000,
+    accent1-transparent: transparentize(#313e54, 0.4),
+    accent2-transparent: transparentize(#2f2e38, 0.4)
+  );
+
