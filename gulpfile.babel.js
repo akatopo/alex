@@ -57,12 +57,12 @@ gulp.task('sections:compile-sass', R.partial(compileSass, SECTIONS_SASS_PARAMS))
 
 gulp.task('sections:watch', gulp.series(
   gulp.parallel('sections:compile-js', 'sections:compile-sass'),
-  R.partial(watch, [
+  R.partial(watch, [[
     { glob: `${SECTIONS_STATIC_SOURCE_BASE_JS}/**/*.js`,
       tasks: gulp.series('sections:compile-js') },
     { glob: `${SECTIONS_STATIC_SOURCE_BASE_SASS}/**/*.scss`,
       tasks: gulp.series('sections:compile-sass') },
-  ])
+  ]])
 ));
 
 gulp.task('sections:build', gulp.series(
@@ -84,10 +84,10 @@ gulp.task('sections:serve-dev', () => spawn('hugo', [
 
 gulp.task('landing:compile-sass', R.partial(compileSass, LANDING_SASS_PARAMS));
 
-gulp.task('landing:watch', gulp.series('landing:compile-sass', R.partial(watch, [
+gulp.task('landing:watch', gulp.series('landing:compile-sass', R.partial(watch, [[
   { glob: `${LANDING_STATIC_SOURCE_BASE_SASS}/**/*.scss`,
     tasks: gulp.series('landing:compile-sass') },
-])));
+]])));
 
 gulp.task('landing:build', gulp.series(
   'landing:compile-sass',
@@ -181,7 +181,7 @@ function compileSass(staticSourceBase, staticBase) {
     .pipe(gulp.dest(`${staticBase}`));
 }
 
-function watch(...watches) {
+function watch(watches) {
   watches.forEach((w) => {
     gulp.watch(w.glob, w.tasks);
   });
