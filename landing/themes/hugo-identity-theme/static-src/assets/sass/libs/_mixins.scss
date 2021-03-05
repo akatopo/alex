@@ -35,3 +35,15 @@
 	padding: ($tb + nth($pad,1)) ($lr + nth($pad,2)) max(0.1em, $tb - _size(element-margin) + nth($pad,3)) ($lr + nth($pad,4)) #{$important};
 
 }
+
+// define a property with a var and a non-var fallback
+@mixin var($property, $var-name, $fallback, $important: false) {
+  #{$property}: $fallback if($important, !important, null);
+  #{$property}: var($var-name, $fallback) if($important, !important, null);
+}
+
+// define a property with a fallback value
+@mixin fallback($property, $value, $fallback) {
+  #{$property}: $fallback;
+  #{$property}: $value;
+}
