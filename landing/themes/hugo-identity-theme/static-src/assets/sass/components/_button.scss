@@ -26,9 +26,11 @@
 		line-height: _size(element-height);
 		padding: 0 1.5em;
 		background-color: transparent;
+    border-style: solid;
 		border-radius: _size(border-radius);
-		border: solid 1px _palette(border);
-		color: _palette(fg) !important;
+    border-width: 1px;
+    @include var(border-color, --border, _palette(border));
+    @include var(color, --fg, _palette(fg), $important: true);
 		cursor: pointer;
 		text-align: center;
 		text-decoration: none;

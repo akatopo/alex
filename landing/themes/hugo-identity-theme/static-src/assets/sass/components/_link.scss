@@ -1,18 +1,29 @@
+@import '../libs/vars';
+@import '../libs/mixins';
+
 .link {
-  color: #9DA4A9;
+  @include var(color, --link, _palette(link));
 
   &:hover {
-    color: #FF2A5E;
+    @include var(color, --highlight, _palette(highlight));
   }
 }
 
 .link--magicLine {
-  background-image: linear-gradient(to bottom, rgba(157,164,169,0.6) 50%, rgba(0,0,0,0) 50%);
+  @include fallback(
+    background-image,
+    linear-gradient(to bottom, rgba(var(--link-rgb, #{_palette(link-rgb)} ), 0.6) 50%, rgba(0,0,0,0) 50%),
+    linear-gradient(to bottom, rgba(_palette(link), 0.6) 50%, rgba(0,0,0,0) 50%)
+  );
   background-size: 2px .1em;
   background-repeat: repeat-x;
   background-position: 0 1.1em;
 
   &:hover {
-    background-image: linear-gradient(to bottom, rgba(255,42,94,0.6) 50%, rgba(0,0,0,0) 50%);
+    @include fallback(
+      background-image,
+      linear-gradient(to bottom, rgba(var(--highlight-rgb, #{_palette(highlight-rgb)} ), 0.6) 50%, rgba(0,0,0,0) 50%),
+      linear-gradient(to bottom, rgba(_palette(highlight),0.6) 50%, rgba(0,0,0,0) 50%)
+    );
   }
 }

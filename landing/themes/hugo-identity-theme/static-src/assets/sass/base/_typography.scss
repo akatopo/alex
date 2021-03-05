@@ -11,7 +11,7 @@
 /* Type */
 
 	body, input, select, textarea {
-		color: _palette(fg);
+    @include var(color, --fg, _palette(fg));
 		font-family: _font(family);
 		font-size: 14pt;
 		font-weight: _font(weight);
@@ -45,12 +45,13 @@
 		}
 
 		&:hover {
-			color: _palette(highlight);
+      @include var(color, --highlight, _palette(highlight));
 		}
 	}
 
 	strong, b {
-		color: _palette(fg-bold);
+    @include var(color, --fg-bold, _palette(fg-bold));
+
 	}
 
 	em, i {
@@ -62,7 +63,7 @@
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		color: _palette(fg-bold);
+    @include var(color, --fg-bold, _palette(fg-bold));
 		line-height: 1.5;
 		margin: 0 0 (_size(element-margin) * 0.5) 0;
 
@@ -117,7 +118,8 @@
 	}
 
 	hr {
-		border: 0;
-		border-bottom: solid _size(border-width) _palette(border);
+    border-style: solid;
+    border-width: _size(border-width);
+    @include var(border-color, --border, _palette(border));
 		margin: (_size(element-margin) * 2) 0;
 	}

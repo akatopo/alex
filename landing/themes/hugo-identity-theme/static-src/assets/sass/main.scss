@@ -28,7 +28,7 @@
   $size: _size(border-width) * 1.25;
 
   &:before {
-    color: _palette(bg);
+    @include var(color, --bg, _palette(bg));
     text-shadow: $size 0px 0px _palette(border),
     ($size * -1) 0px 0px _palette(border),
     0px $size 0px _palette(border),
@@ -48,6 +48,39 @@
   }
 }
 
+:root {
+  --bg: #{_palette(bg)};
+  --fg: #{_palette(fg)};
+  --fg-bold: #{_palette(fg-bold)};
+  --fg-light: #{_palette(fg-light)};
+  --link: #{_palette(link)};
+  --link-rgb: #{_palette(link-rgb)};
+  --border: #{_palette(border)};
+  --highlight: #{_palette(highlight)};
+  --highlight-rgb: #{_palette(highlight-rgb)};
+  --accent1: #{_palette(accent1)};
+  --accent2: #{_palette(accent2)};
+  --accent1-transparent: #{_palette(accent1-transparent)};
+  --accent2-transparent: #{_palette(accent2-transparent)};
+}
+
+@media(prefers-color-scheme: dark) {
+  :root {
+    --bg: #{_palette-dark(bg)};
+    --fg: #{_palette-dark(fg)};
+    --fg-bold: #{_palette-dark(fg-bold)};
+    --fg-light: #{_palette-dark(fg-light)};
+    --link: #{_palette-dark(link)};
+    --link-rgb: #{_palette-dark(link-rgb)};
+    --border: #{_palette-dark(border)};
+    --highlight: #{_palette-dark(highlight)};
+    --highlight-rgb: #{_palette-dark(highlight-rgb)};
+    --accent1: #{_palette-dark(accent1)};
+    --accent2: #{_palette-dark(accent2)};
+    --accent1-transparent: #{_palette-dark(accent1-transparent)};
+    --accent2-transparent: #{_palette-dark(accent2-transparent)};
+  }
+}
 
 // Base.
 
@@ -71,3 +104,4 @@
 @import 'layout/wrapper';
 
 @import 'custom';
+

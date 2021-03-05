@@ -37,15 +37,30 @@
 	body {
 		height: 100%;
 		background-color: _palette(bg);
-		@include vendor('background-image', (
+
+    @include vendor('background-image', (
 			'url("images/overlay.png")',
-			'linear-gradient(60deg, #{transparentize(_palette(accent1), 0.5)} 5%, #{transparentize(_palette(accent2), 0.65)})',
-			'url("../../images/bg.jpg")'
-		));
-		background-repeat:		repeat,			no-repeat,			no-repeat;
-		background-size:		100px 100px,	cover,				cover;
-		background-position:	top left,		center center,		bottom center;
-		background-attachment:	fixed,			fixed,				fixed;
+			'linear-gradient(60deg, #{_palette(accent1-transparent)} 5%, #{_palette(accent2-transparent)} )',
+			'url("../../images/backgrounds/bg.jpg")'
+    ));
+    @include vendor('background-image', (
+			'url("images/overlay.png")',
+			'linear-gradient(60deg, var(--accent1-transparent, #{_palette(accent1-transparent)} ) 5%, var(--accent2-transparent, #{_palette(accent2-transparent)} ) )',
+			'url("../../images/backgrounds/bg.jpg")'
+    ));
+
+    background-repeat:		  repeat,			   no-repeat,		  	no-repeat;
+		background-size:		    100px 100px, 	cover,				  cover;
+		background-position:	  top left,		   center center,  		top left;
+		background-attachment:	fixed,		    fixed,				  fixed;
+
+    @media(prefers-color-scheme: dark) {
+      background-image: url(../../images/backgrounds/bg.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: top left;
+      background-attachment: fixed;
+    }
 
 		&:after {
 			content: '';
@@ -58,10 +73,17 @@
 			opacity: 0;
 			z-index: 1;
 
-			background-color: _palette(bg);
-			@include vendor('background-image', (
+
+      @include var(background-color, --bg, _palette(bg));
+
+
+      @include vendor('background-image', (
 				'url("images/overlay.png")',
-				'linear-gradient(60deg, #{transparentize(_palette(accent1), 0.5)} 5%, #{transparentize(_palette(accent2), 0.65)})'
+				'linear-gradient(60deg, #{_palette(accent1-transparent)} 5%, #{_palette(accent2-transparent)} )'
+			));
+      @include vendor('background-image', (
+				'url("images/overlay.png")',
+				'linear-gradient(60deg, var(--accent1-transparent, #{_palette(accent1-transparent)}) 5%, var(--accent2-transparent, #{_palette(accent2-transparent)} ) )'
 			));
 			background-repeat:		repeat,			no-repeat;
 			background-size:		100px 100px,	cover;

@@ -16,10 +16,18 @@
 		min-width: 27em;
 		@include padding(4.5em, 3em);
 
-		background: _palette(bg);
-		border-radius: _size(border-radius);
+    @include var(background, --bg, _palette(bg));
+    border-radius: _size(border-radius);
+    border-style: solid;
+    border-width: 1px;
+    @include var(border-color, --border, _palette(border));
 		cursor: default;
-		opacity: 0.95;
+
+    opacity: 0.95;
+    @media(prefers-color-scheme: dark) {
+      border-width: 2px;
+    }
+
 		text-align: center;
 
 		@include vendor('transform-origin', '50% 50%');
@@ -38,7 +46,7 @@
 				display: block;
 				margin: 0 auto;
 				border-radius: 100%;
-				box-shadow: 0 0 0 1.5em _palette(bg);
+        @include fallback(box-shadow, 0 0 0 1.5em var(--bg, _palette(bg)), 0 0 0 1.5em _palette(bg));
 				max-width: 128px;
    			max-height: 128px;
 			}
@@ -52,8 +60,14 @@
 				width: calc(100% + 6em);
 				height: _size(border-width);
 				z-index: -1;
-				background: _palette(border);
-			}
+        @include var(background, --border, _palette(border));
+      }
+
+      @media(prefers-color-scheme: dark) {
+        &:before {
+          display: none;
+        }
+      }
 		}
 
 		@include breakpoint(xsmall) {

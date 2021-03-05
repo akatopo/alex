@@ -1,4 +1,6 @@
+@import 'libs/vars';
+
 a[class^="fa-"]:hover::before {
-  color: #ff7496;
+  @include var(color, --highlight, _palette(highlight));
   text-shadow: none!important;
 }
