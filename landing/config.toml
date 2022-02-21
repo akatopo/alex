@@ -36,8 +36,8 @@ disableSitemap = true
     name = "Alex Katopodis"
     [params.position]
         role = "Front-end engineer"
-        companyName = "Enartia"
-        companyLink = "https://enartia.com"
+        companyName = "Papaki"
+        companyLink = "https://papaki.com/en"
 
     # Extra stuff
     # NOTE: There is little different extra stuff in original Identity theme by HTML5 UP.
