@@ -25,105 +25,155 @@ import file from 'gulp-file';
 const redirects = [
   { from: '/code', to: '/sections/page/code' },
   { from: '/presentations', to: '/sections/page/presentations' },
-  { from: '/cv', to: 'https://www.dropbox.com/s/24bh1d6die4huw0/Alexandros_Katopodis_CV_en_abridged.pdf?dl=1', code: 302 },
+  {
+    from: '/cv',
+    to: 'https://www.dropbox.com/s/24bh1d6die4huw0/Alexandros_Katopodis_CV_en_abridged.pdf?dl=1',
+    code: 302,
+  },
 ];
 
-const netlifyRedirects = redirects.map(({ from, to, code }) => `${from} ${to} ${code || 200}`)
+const netlifyRedirects = redirects
+  .map(({ from, to, code }) => `${from} ${to} ${code || 200}`)
   .join('\n');
 
 const CNAME = 'alex.katopod.is';
 
-const SECTIONS_STATIC_SOURCE_BASE = './sections/themes/beautifulhugo/static-src';
+const SECTIONS_STATIC_SOURCE_BASE =
+  './sections/themes/beautifulhugo/static-src';
 const SECTIONS_STATIC_SOURCE_BASE_JS = `${SECTIONS_STATIC_SOURCE_BASE}/js`;
 const SECTIONS_STATIC_SOURCE_BASE_SASS = `${SECTIONS_STATIC_SOURCE_BASE}/sass`;
 const SECTIONS_STATIC_BASE = './sections/themes/beautifulhugo/static';
 const SECTIONS_STATIC_BASE_JS = `${SECTIONS_STATIC_BASE}/js`;
 const SECTIONS_STATIC_BASE_CSS = `${SECTIONS_STATIC_BASE}/css`;
-const SECTIONS_BUNDLE_PARAMS = [SECTIONS_STATIC_SOURCE_BASE_JS, SECTIONS_STATIC_BASE_JS];
-const SECTIONS_SASS_PARAMS = [SECTIONS_STATIC_SOURCE_BASE_SASS, SECTIONS_STATIC_BASE_CSS];
+const SECTIONS_BUNDLE_PARAMS = [
+  SECTIONS_STATIC_SOURCE_BASE_JS,
+  SECTIONS_STATIC_BASE_JS,
+];
+const SECTIONS_SASS_PARAMS = [
+  SECTIONS_STATIC_SOURCE_BASE_SASS,
+  SECTIONS_STATIC_BASE_CSS,
+];
 const SECTIONS_BASE_URL = `https://${CNAME}/sections/`;
 
-const LANDING_STATIC_SOURCE_BASE = './landing/themes/hugo-identity-theme/static-src';
+const LANDING_STATIC_SOURCE_BASE =
+  './landing/themes/hugo-identity-theme/static-src';
 const LANDING_STATIC_SOURCE_BASE_SASS = `${LANDING_STATIC_SOURCE_BASE}/assets/sass`;
 const LANDING_STATIC_BASE = './landing/themes/hugo-identity-theme/static';
 const LANDING_STATIC_BASE_CSS = `${LANDING_STATIC_BASE}/assets/css`;
-const LANDING_SASS_PARAMS = [LANDING_STATIC_SOURCE_BASE_SASS, LANDING_STATIC_BASE_CSS];
+const LANDING_SASS_PARAMS = [
+  LANDING_STATIC_SOURCE_BASE_SASS,
+  LANDING_STATIC_BASE_CSS,
+];
 const LANDING_BASE_URL = `https://${CNAME}/`;
 
 /////////////////////////////////////////////////////////////
 
 gulp.task('sections:compile-js', R.partial(compileJs, SECTIONS_BUNDLE_PARAMS));
 
-gulp.task('sections:compile-sass', R.partial(compileSass, SECTIONS_SASS_PARAMS));
+gulp.task(
+  'sections:compile-sass',
+  R.partial(compileSass, SECTIONS_SASS_PARAMS),
+);
 
-gulp.task('sections:watch', gulp.series(
-  gulp.parallel('sections:compile-js', 'sections:compile-sass'),
-  R.partial(watch, [[
-    { glob: `${SECTIONS_STATIC_SOURCE_BASE_JS}/**/*.js`,
-      tasks: gulp.series('sections:compile-js') },
-    { glob: `${SECTIONS_STATIC_SOURCE_BASE_SASS}/**/*.scss`,
-      tasks: gulp.series('sections:compile-sass') },
-  ]])
-));
+gulp.task(
+  'sections:watch',
+  gulp.series(
+    gulp.parallel('sections:compile-js', 'sections:compile-sass'),
+    R.partial(watch, [
+      [
+        {
+          glob: `${SECTIONS_STATIC_SOURCE_BASE_JS}/**/*.js`,
+          tasks: gulp.series('sections:compile-js'),
+        },
+        {
+          glob: `${SECTIONS_STATIC_SOURCE_BASE_SASS}/**/*.scss`,
+          tasks: gulp.series('sections:compile-sass'),
+        },
+      ],
+    ]),
+  ),
+);
 
-gulp.task('sections:build', gulp.series(
-  gulp.parallel('sections:compile-js', 'sections:compile-sass'),
-  R.partial(build, [
-    'sections',
-    `${process.cwd()}/.tmp-build-sections`,
-  ]),
-  R.partial(removeBaseUrl, ['./.tmp-build-sections', SECTIONS_BASE_URL]),
-  R.partial(rev, ['./.tmp-build-sections', SECTIONS_BASE_URL, './public/sections']),
-  () => del('./.tmp-build-sections/*', { dot: true })
-));
+gulp.task(
+  'sections:build',
+  gulp.series(
+    gulp.parallel('sections:compile-js', 'sections:compile-sass'),
+    R.partial(build, ['sections', `${process.cwd()}/.tmp-build-sections`]),
+    R.partial(removeBaseUrl, ['./.tmp-build-sections', SECTIONS_BASE_URL]),
+    R.partial(rev, [
+      './.tmp-build-sections',
+      SECTIONS_BASE_URL,
+      './public/sections',
+    ]),
+    () => del('./.tmp-build-sections/*', { dot: true }),
+  ),
+);
 
-gulp.task('sections:serve-dev', () => spawn('hugo', [
-  'server',
-  '-s', 'sections',
-  '--port', '1314',
-], { stdio: ['pipe', 'inherit', 'pipe'] }));
+gulp.task('sections:serve-dev', () =>
+  spawn('hugo', ['server', '-s', 'sections', '--port', '1314'], {
+    stdio: ['pipe', 'inherit', 'pipe'],
+  }),
+);
 
 gulp.task('landing:compile-sass', R.partial(compileSass, LANDING_SASS_PARAMS));
 
-gulp.task('landing:watch', gulp.series('landing:compile-sass', R.partial(watch, [[
-  { glob: `${LANDING_STATIC_SOURCE_BASE_SASS}/**/*.scss`,
-    tasks: gulp.series('landing:compile-sass') },
-]])));
+gulp.task(
+  'landing:watch',
+  gulp.series(
+    'landing:compile-sass',
+    R.partial(watch, [
+      [
+        {
+          glob: `${LANDING_STATIC_SOURCE_BASE_SASS}/**/*.scss`,
+          tasks: gulp.series('landing:compile-sass'),
+        },
+      ],
+    ]),
+  ),
+);
 
-gulp.task('landing:build', gulp.series(
-  'landing:compile-sass',
-  R.partial(build, [
-    'landing',
-    `${process.cwd()}/.tmp-build-landing`,
-  ]),
-  R.partial(removeBaseUrl, ['./.tmp-build-landing', LANDING_BASE_URL]),
-  R.partial(rev, ['./.tmp-build-landing', LANDING_BASE_URL, './public']),
-  () => del('./.tmp-build-landing/*', { dot: true })
-));
+gulp.task(
+  'landing:build',
+  gulp.series(
+    'landing:compile-sass',
+    R.partial(build, ['landing', `${process.cwd()}/.tmp-build-landing`]),
+    R.partial(removeBaseUrl, ['./.tmp-build-landing', LANDING_BASE_URL]),
+    R.partial(rev, ['./.tmp-build-landing', LANDING_BASE_URL, './public']),
+    () => del('./.tmp-build-landing/*', { dot: true }),
+  ),
+);
 
-gulp.task('landing:serve-dev', () => spawn('hugo', [
-  'server',
-  '-s', 'landing',
-  '--port', '1313',
-], { stdio: ['pipe', 'inherit', 'pipe'] }));
+gulp.task('landing:serve-dev', () =>
+  spawn('hugo', ['server', '-s', 'landing', '--port', '1313'], {
+    stdio: ['pipe', 'inherit', 'pipe'],
+  }),
+);
 
-gulp.task('build', gulp.series(
-  () => del('./public/*', { dot: true }),
-  gulp.parallel('landing:build', 'sections:build'),
-  () => file('_redirects', netlifyRedirects, { src: true })
-    .pipe(gulp.dest('./public'))
-));
-
-gulp.task('deploy', gulp.series(
+gulp.task(
   'build',
-  deploy
-));
+  gulp.series(
+    () => del('./public/*', { dot: true }),
+    gulp.parallel('landing:build', 'sections:build'),
+    () =>
+      file('_redirects', netlifyRedirects, { src: true }).pipe(
+        gulp.dest('./public'),
+      ),
+  ),
+);
+
+gulp.task('deploy', gulp.series('build', deploy));
 
 /////////////////////////////////////////////////////////////
 
 function removeBaseUrl(basePath, baseUrl) {
-  const stream = gulp.src(`${basePath}/**/*.html`, { base: basePath })
-    .pipe(replace(new RegExp(`(${escapeRegExp(baseUrl)})([^.\\n]+\\.)`, 'g'), '/$2'));
+  const stream = gulp
+    .src(`${basePath}/**/*.html`, { base: basePath })
+    .pipe(
+      replace(
+        new RegExp(`(${escapeRegExp(baseUrl)})([^.\\n]+\\.)`, 'g'),
+        '/$2',
+      ),
+    );
 
   redirects.forEach(({ from, to }) => {
     stream.pipe(replace(to, from));
@@ -134,9 +184,12 @@ function removeBaseUrl(basePath, baseUrl) {
 
 function build(page, dest) {
   return spawn('hugo', [
-    '--config', `${page}/config.toml`,
-    '-s', page,
-    '-d', dest,
+    '--config',
+    `${page}/config.toml`,
+    '-s',
+    page,
+    '-d',
+    dest,
   ]);
 }
 
@@ -153,29 +206,32 @@ function compileJs(staticSourceBase, staticBase) {
     ],
   });
 
-  return b.bundle()
-    .pipe(source('bundle.js'))
-    .pipe(buffer())
-    .pipe(sourcemaps.init({ loadMaps: true }))
-    // Add transformation tasks to the pipeline here.
-    .pipe(uglify())
-    .on('error', gutil.log)
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(`${staticBase}`));
+  return (
+    b
+      .bundle()
+      .pipe(source('bundle.js'))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({ loadMaps: true }))
+      // Add transformation tasks to the pipeline here.
+      .pipe(uglify())
+      .on('error', gutil.log)
+      .pipe(sourcemaps.write('.'))
+      .pipe(gulp.dest(`${staticBase}`))
+  );
 }
 
 function compileSass(staticSourceBase, staticBase) {
-  return gulp.src([
-      `${staticSourceBase}/*.scss`,
-      `!${staticSourceBase}/_*.scss`,
-    ])
+  return gulp
+    .src([`${staticSourceBase}/*.scss`, `!${staticSourceBase}/_*.scss`])
     .pipe(sourcemaps.init())
-    .pipe(sass({
-      includePaths: [
-        './node_modules/font-awesome/scss',
-        './node_modules/bootstrap-sass/assets/stylesheets',
-      ],
-    }).on('error', sass.logError))
+    .pipe(
+      sass({
+        includePaths: [
+          './node_modules/font-awesome/scss',
+          './node_modules/bootstrap-sass/assets/stylesheets',
+        ],
+      }).on('error', sass.logError),
+    )
     .pipe(csso())
     .pipe(autoprefixer({ browsers: ['last 2 versions'] }))
     .pipe(sourcemaps.write('.'))
@@ -189,20 +245,27 @@ function watch(watches) {
 }
 
 function deploy(done) {
-  ghPages.publish(path.join(__dirname, 'public'), {
-    logger: gutil.log,
-    src: ['**/*'],
-    repo: 'git@github.com-akatopo:akatopo/alex.git',
-    branch: 'gh-pages',
-  }, done);
+  ghPages.publish(
+    path.join(__dirname, 'public'),
+    {
+      logger: gutil.log,
+      src: ['**/*'],
+      repo: 'git@github.com-akatopo:akatopo/alex.git',
+      branch: 'gh-pages',
+    },
+    done,
+  );
 }
 
 function rev(buildPath, baseUrl, dest) {
-  return gulp.src([`${buildPath}/**/*`])
-    .pipe(revAll.revision({
-      dontRenameFile: [/\.html$/, /^\/robots\.txt$/],
-      prefix: baseUrl,
-    }))
+  return gulp
+    .src([`${buildPath}/**/*`])
+    .pipe(
+      revAll.revision({
+        dontRenameFile: [/\.html$/, /^\/robots\.txt$/],
+        prefix: baseUrl,
+      }),
+    )
     .pipe(gulp.dest(dest));
 }
 
@@ -227,8 +290,7 @@ function spawn(exe, args, { cwd, stdio } = {}) {
       if (code) {
         const msg = buf.join('') || `Process failed: ${code}`;
         reject(new Error(msg));
-      }
-      else {
+      } else {
         resolve(code);
       }
     });
