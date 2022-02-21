@@ -25,9 +25,10 @@ import file from 'gulp-file';
 const redirects = [
   { from: '/code', to: '/sections/page/code' },
   { from: '/presentations', to: '/sections/page/presentations' },
+  { from: '/cv', to: 'https://www.dropbox.com/s/24bh1d6die4huw0/Alexandros_Katopodis_CV_en_abridged.pdf?dl=1', code: 302 },
 ];
 
-const netlifyRedirects = redirects.map(({ from, to }) => `${from} ${to} 200`)
+const netlifyRedirects = redirects.map(({ from, to, code }) => `${from} ${to} ${code || 200}`)
   .join('\n');
 
 const CNAME = 'alex.katopod.is';
