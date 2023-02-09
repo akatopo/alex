@@ -227,7 +227,7 @@ function compileSass(staticSourceBase, staticBase) {
     .pipe(
       sass({
         includePaths: [
-          './node_modules/font-awesome/scss',
+          './node_modules/@fortawesome/fontawesome-free/scss',
           './node_modules/bootstrap-sass/assets/stylesheets',
         ],
       }).on('error', sass.logError),
