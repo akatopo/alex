@@ -43,16 +43,6 @@
             </a>
           </li>
           {{ end }}
-		      {{ if .Site.Author.email }}
-          <li>
-            <a rel="me" href="mailto:{{ .Site.Author.email }}" title="Email me">
-              <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          {{ end }}
 		      {{ if .Site.Author.linkedin }}
           <li>
             <a rel="me" href="https://linkedin.com/{{ .Site.Author.linkedin }}" title="LinkedIn">
@@ -89,6 +79,16 @@
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
                 <i class="fab fa-wikipedia-w fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          {{ end }}
+          {{ if .Site.Author.email }}
+          <li>
+            <a rel="me" href="mailto:{{ .Site.Author.email }}" title="Email me">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
               </span>
             </a>
           </li>
