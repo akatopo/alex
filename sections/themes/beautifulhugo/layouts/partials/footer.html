@@ -5,37 +5,47 @@
         <ul class="list-inline text-center footer-links">
           {{ if .Site.Author.facebook }}
           <li>
-            <a href="https://www.facebook.com/{{ .Site.Author.facebook }}" title="Facebook">
+            <a rel="me" href="https://www.facebook.com/{{ .Site.Author.facebook }}" title="Facebook">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
               </span>
             </a>
           </li>
           {{ end }}
           {{ if .Site.Author.github }}
           <li>
-            <a href="https://github.com/{{ .Site.Author.github }}" title="GitHub">
+            <a rel="me" href="https://github.com/{{ .Site.Author.github }}" title="GitHub">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
               </span>
             </a>
           </li>
           {{ end }}
 		      {{ if .Site.Author.twitter }}
           <li>
-            <a href="https://twitter.com/{{ .Site.Author.twitter }}" title="Twitter">
+            <a rel="me" href="https://twitter.com/{{ .Site.Author.twitter }}" title="Twitter">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          {{ end }}
+          {{ if and .Site.Author.mastodon_instance .Site.Author.mastodon_username }}
+          <li>
+            <a rel="me" href="https://{{ .Site.Author.mastodon_instance }}/@{{ .Site.Author.mastodon_username }}" title="Mastodon">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fab fa-mastodon fa-stack-1x fa-inverse"></i>
               </span>
             </a>
           </li>
           {{ end }}
 		      {{ if .Site.Author.email }}
           <li>
-            <a href="mailto:{{ .Site.Author.email }}" title="Email me">
+            <a rel="me" href="mailto:{{ .Site.Author.email }}" title="Email me">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
                 <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
@@ -45,40 +55,40 @@
           {{ end }}
 		      {{ if .Site.Author.linkedin }}
           <li>
-            <a href="https://linkedin.com/{{ .Site.Author.linkedin }}" title="LinkedIn">
+            <a rel="me" href="https://linkedin.com/{{ .Site.Author.linkedin }}" title="LinkedIn">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
               </span>
             </a>
           </li>
           {{ end }}
 	    	  {{ if .Site.Author.stackoverflow }}
           <li>
-            <a href="https://stackoverflow.com/users/{{ .Site.Author.stackoverflow }}" title="StackOverflow">
+            <a rel="me" href="https://stackoverflow.com/users/{{ .Site.Author.stackoverflow }}" title="StackOverflow">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                <i class="fa fab-stack-overflow fa-stack-1x fa-inverse"></i>
               </span>
             </a>
           </li>
           {{ end }}
           {{ if .Site.Author.soundcloud }}
           <li>
-            <a href="https://soundcloud.com/{{ .Site.Author.soundcloud }}" title="SoundCloud">
+            <a rel="me" href="https://soundcloud.com/{{ .Site.Author.soundcloud }}" title="SoundCloud">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-soundcloud fa-stack-1x fa-inverse"></i>
+                <i class="fab fa-soundcloud fa-stack-1x fa-inverse"></i>
               </span>
             </a>
           </li>
           {{ end }}
           {{ if .Site.Author.wikipedia }}
           <li>
-            <a href="https://wikipedia.org/wiki/User:{{ .Site.Author.wikipedia }}" title="Wikipedia">
+            <a rel="me" href="https://wikipedia.org/wiki/User:{{ .Site.Author.wikipedia }}" title="Wikipedia">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-wikipedia-w fa-stack-1x fa-inverse"></i>
+                <i class="fab fa-wikipedia-w fa-stack-1x fa-inverse"></i>
               </span>
             </a>
           </li>

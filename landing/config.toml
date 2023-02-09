@@ -74,22 +74,22 @@ disableSitemap = true
 
     [[params.social]]
         title = "Github"
-        icon = "fa-github"
+        icon = "fab fa-github"
         link = "https://github.com/akatopo"
 
     [[params.social]]
-        title = "Twitter"
-        icon = "fa-twitter"
-        link = "https://twitter.com/anekopod"
+        title = "Mastodon"
+        icon = "fab fa-mastodon"
+        link = "https://mastodon.social/@akatopo"
 
     [[params.social]]
         title = "LinkedIn"
-        icon = "fa-linkedin"
+        icon = "fab fa-linkedin"
         link = "https://www.linkedin.com/in/akatopo"
 
     [[params.social]]
         title = "Email"
-        icon = "fa-envelope"
+        icon = "fa fa-envelope"
         link = "mailto:alex_at_katopod.is"
 
     # Footer settings

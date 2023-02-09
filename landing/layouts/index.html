@@ -92,7 +92,7 @@
         <footer>
           <ul class="icons">
             {{ range .Site.Params.social }}
-            <li><a href="{{ .link }}" class="{{ .icon }}">{{ .title }}</a></li>
+            <li><a rel="me" href="{{ .link }}" class="{{ .icon }}">{{ .title }}</a></li>
             {{ end }}
           </ul>
         </footer>
